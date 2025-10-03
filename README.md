@@ -1,6 +1,13 @@
-# chef-incron
+# chef-incron-next
 
-[![Build Status](https://travis-ci.org/dwradcliffe/chef-incron.png?branch=master)](https://travis-ci.org/dwradcliffe/chef-incron)
+This is a fork of the original [chef-incron](https://github.com/dwradcliffe/chef-incron), which has been updated to install incron-next on modern systems.
+The final version of incron, 5.0.12, has a few bugs such as leaving zombie processes, and hanging, which have been fixed in incron-next.
+incron-next is installed as incron and built from source - can be configured via attributes for version and if local or remote source.
+
+For backwards compatibility the resources incron_d and incron_user are aliased to incron_next_d and incron_next_user respectively.
+
+---
+
 
 Installs the incron package and starts the incrond service.
 

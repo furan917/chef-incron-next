@@ -1,12 +1,25 @@
 #
-# Cookbook Name:: incron
+# Cookbook Name:: incron-next
 # Recipe:: default
 #
 
-include_recipe 'yum-repoforge' if platform_family?('rhel')
+include_recipe 'incron-next::install'
 
-package 'incron' do
-  action :install
+# Create systemd service file
+template "/etc/systemd/system/#{node['incron']['service_name']}.service" do
+  source 'incron.service.erb'
+  mode '0644'
+  variables(
+    install_prefix: node['incron']['install_prefix']
+  )
+  action :create
+  notifies :run, 'execute[systemd-daemon-reload]', :immediately
+  notifies node['incron']['reload_method'], 'service[incrond]'
+end
+
+execute 'systemd-daemon-reload' do
+  command 'systemctl daemon-reload'
+  action :nothing
 end
 
 service 'incrond' do

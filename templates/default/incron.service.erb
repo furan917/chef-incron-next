@@ -1,0 +1,12 @@
+[Unit]
+Description=file system events scheduler
+Documentation=man:incrond(8)
+
+[Service]
+Type=forking
+PIDFile=/run/incrond.pid
+ExecStart=<%= @install_prefix %>/sbin/incrond
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

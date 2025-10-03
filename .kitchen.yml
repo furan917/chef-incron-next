@@ -6,13 +6,22 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-12.04
   - name: ubuntu-14.04
-  - name: centos-6.6
+  - name: ubuntu-22.04
+  - name: ubuntu-24.04
   - name: centos-7.0
+  - name: almalinux-8
+  - name: almalinux-9
 
 suites:
   - name: default
     run_list:
-      - recipe[incron::default]
+      - recipe[incron-next::default]
     attributes:
+  - name: local-source
+    run_list:
+      - recipe[incron-next::default]
+    attributes:
+      incron:
+        version: '0.5.12'
+        use_local_source: true

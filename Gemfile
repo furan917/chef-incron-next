@@ -10,3 +10,6 @@ group :kitchen do
   gem 'test-kitchen'
   gem 'kitchen-vagrant'
 end
+
+##
+# gem 'berkshelf', '~> 8.0.9'

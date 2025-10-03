@@ -1,2 +1,2 @@
 name 'incron_spec'
-depends 'incron'
+depends 'incron-next'

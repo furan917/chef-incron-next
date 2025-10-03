@@ -1,6 +1,6 @@
-include_recipe 'incron'
+include_recipe 'incron-next'
 
-incron_d 'notify_home_changes' do
+incron_next_d 'notify_home_changes' do
   path '/home'
   mask 'IN_MODIFY'
   command '/usr/local/bin/abcd'
