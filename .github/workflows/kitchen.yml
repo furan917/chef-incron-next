@@ -1,0 +1,67 @@
+name: Cookbook Kitchen
+
+env:
+  CHEF_LICENSE: accept-no-persist
+  KITCHEN_LOCAL_YAML: .kitchen.dokken.yml
+
+on:
+  workflow_call:
+    inputs:
+      cinc_version:
+        type: string
+        description: 'Cinc workstation version to use'
+        default: 'latest'
+      os-targets:
+        type: string
+        description: 'List of OS to run the Test-Kitchen suites on'
+        default: 'ubuntu-2404, almalinux-9'
+        required: true
+      suites:
+        type: string
+        description: 'List of Test-Kitchen suites to run'
+        default: 'default'
+        required: true
+
+jobs:
+  # Convert the string inputs to JSON format to be used in the matrix strategy
+  matrix-input-converter:
+    runs-on: ubuntu-latest
+    outputs:
+        os-targets: ${{ steps.convert.outputs.os-targets }}
+        suites: ${{ steps.convert.outputs.suites }}
+    steps:
+      - name: convert inputs to JSON
+        id: convert
+        # Convert to json, strip whitespace, then remove empty strings
+        run: |
+          echo "os-targets=$(echo "${{ inputs.os-targets }}" | jq -cR 'split(",") | map(.|gsub(" "; "")) | map(select(. != ""))')" >> $GITHUB_OUTPUT
+          echo "suites=$(echo "${{ inputs.suites }}" | jq -cR 'split(",") | map(.|gsub(" "; "")) | map(select(. != ""))')" >> $GITHUB_OUTPUT
+
+  kitchen:
+    needs: [matrix-input-converter]
+    if: ${{ needs.matrix-input-converter.outputs.os-targets != '[]' && needs.matrix-input-converter.outputs.suites != '[]' }}
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        suite: ${{fromJson(needs.matrix-input-converter.outputs.suites)}}
+        os: ${{fromJson(needs.matrix-input-converter.outputs.os-targets)}}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Install Cinc Workstation
+        uses: ./.github/actions/install-cinc
+        with:
+          cinc_version: ${{ inputs.cinc_version }}
+
+      - name: Test-Kitchen
+        uses: actionshub/test-kitchen@main
+        with:
+          suite: ${{ matrix.suite }}
+          os: ${{ matrix.os }}
+        env:
+          CHEF_LICENSE: accept-no-persist

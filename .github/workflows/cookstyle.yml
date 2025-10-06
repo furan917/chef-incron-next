@@ -1,0 +1,52 @@
+name: Cookbook Cookstyle
+
+env:
+  CHEF_LICENSE: accept-no-persist
+
+on:
+  workflow_call:
+    inputs:
+      cinc_version:
+        type: string
+        description: 'Cinc workstation version to use'
+        default: 'latest'
+
+jobs:
+  cookstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v5
+
+      - name: Install Cinc Workstation
+        uses: ./.github/actions/install-cinc
+        with:
+          cinc_version: ${{ inputs.cinc_version }}
+
+      - name: Get Gemfile if it exists
+        run: |
+          if [ -f Gemfile ]; then
+            echo "BUNDLE_GEMFILE=Gemfile" >> $GITHUB_ENV
+          fi
+
+      - name: Cache gems
+        uses: actions/cache@v4
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-
+
+      - name: Install gems from Gemfile
+        run: |
+          if [ -n "${{ env.BUNDLE_GEMFILE }}" ]; then
+            BUNDLE_GEMFILE=${{ env.BUNDLE_GEMFILE }} cinc exec bundle install --path vendor/bundle
+          fi
+
+      - name: Run Cookstyle
+        run: |
+          if [ -n "${{ env.BUNDLE_GEMFILE }}" ]; then
+            BUNDLE_GEMFILE=${{ env.BUNDLE_GEMFILE }} cinc exec bundle exec cookstyle
+          else
+            cinc exec cookstyle
+          fi

@@ -4,6 +4,10 @@ driver:
   privileged: true
   chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
 
+verifier:
+  name: inspec
+  backend_cache: false
+
 transport:
   name: dokken
 
