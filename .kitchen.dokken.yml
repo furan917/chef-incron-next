@@ -11,12 +11,6 @@ provisioner:
   name: dokken
 
 platforms:
-  - name: ubuntu-14.04
-    driver:
-      image: dokken/ubuntu-14.04
-      pid_one_command: /sbin/init
-      pull_platform: linux/amd64
-
   - name: ubuntu-22.04
     driver:
       image: dokken/ubuntu-22.04
@@ -27,18 +21,6 @@ platforms:
     driver:
       image: dokken/ubuntu-24.04
       pid_one_command: /bin/systemd
-      pull_platform: linux/amd64
-
-  - name: centos-7
-    driver:
-      image: dokken/centos-7
-      pid_one_command: /usr/lib/systemd/systemd
-      pull_platform: linux/amd64
-
-  - name: almalinux-8
-    driver:
-      image: dokken/almalinux-8
-      pid_one_command: /usr/lib/systemd/systemd
       pull_platform: linux/amd64
 
   - name: almalinux-9

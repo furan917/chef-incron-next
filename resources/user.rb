@@ -1,6 +1,7 @@
 # Modern custom resource for incron user allow/deny lists
 resource_name :incron_next_user
 provides :incron_next_user
+unified_mode true
 
 property :username, String, name_property: true
 property :cookbook, String, default: 'incron-next'

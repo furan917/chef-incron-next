@@ -5,8 +5,6 @@ license          'MIT'
 description      'Installs and configures incron-next, fork of incron'
 version          '0.3.5'
 
-recipe 'incron-next', 'Install incron package and starts the service'
-
 depends 'yum'
 depends 'yum-repoforge'
 

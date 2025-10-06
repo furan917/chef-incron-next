@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'incron_next_user' do
   before do
     stub_command(/rpm -qa | grep -q '^rpmforge-release-[0-9\.-]'/).and_return(true)
-    stub_command("systemctl list-unit-files | grep -q \"incron.*masked\"").and_return(false)
+    stub_command('systemctl list-unit-files | grep -q "incron.*masked"').and_return(false)
   end
 
   context 'when allowing a user' do

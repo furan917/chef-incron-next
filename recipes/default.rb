@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: incron-next
+# Cookbook:: incron-next
 # Recipe:: default
 #
 

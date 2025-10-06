@@ -1,15 +1,10 @@
 source 'https://rubygems.org'
 
-gem 'emeril',     '~> 0.7'
-gem 'chefspec',   '~> 4.0'
-gem 'foodcritic', '~> 4.0'
-gem 'rubocop',    '~> 0.12'
-gem 'berkshelf',  '~> 4.3'
+gem 'berkshelf',  '~> 8.0'
+gem 'chefspec',   '~> 9.0'
+gem 'cookstyle',  '~> 7.32'
 
 group :kitchen do
-  gem 'test-kitchen'
   gem 'kitchen-vagrant'
+  gem 'test-kitchen'
 end
-
-##
-# gem 'berkshelf', '~> 8.0.9'

@@ -1,8 +1,8 @@
 # Modern custom resource for incron.d entries
 resource_name :incron_next_d
 provides :incron_next_d
+unified_mode true
 
-property :name, String, name_property: true
 property :path, String, required: true
 property :mask, String, required: true
 property :command, String, required: true

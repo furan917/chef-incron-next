@@ -4,7 +4,7 @@ describe 'incron-next::install' do
   let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '24.04').converge(described_recipe) }
 
   before do
-    stub_command("systemctl list-unit-files | grep -q \"incron.*masked\"").and_return(false)
+    stub_command('systemctl list-unit-files | grep -q "incron.*masked"').and_return(false)
   end
 
   context 'when using remote source (default)' do

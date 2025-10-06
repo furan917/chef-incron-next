@@ -2,6 +2,7 @@
 # Delegates to incron_next_user
 resource_name :incron_user
 provides :incron_user
+unified_mode true
 
 property :username, String, name_property: true
 
