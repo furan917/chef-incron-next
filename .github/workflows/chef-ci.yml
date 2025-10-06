@@ -1,0 +1,33 @@
+name: Chef CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+env:
+  CHEF_LICENSE: accept-no-persist
+
+jobs:
+  cookstyle:
+    uses: ./.github/workflows/cookstyle.yml
+
+  rspec:
+    uses: ./.github/workflows/rspec.yml
+
+  kitchen:
+    uses: ./.github/workflows/kitchen.yml
+    with:
+      os-targets: 'ubuntu-2204, ubuntu-2404, almalinux-9'
+      suites: 'default, local-source'
+
+  # upload-cookbook:
+  #   needs: [cookstyle, rspec, kitchen]
+  #   if: false  # Disabled for now
+  #   # if: ${{ !contains(needs.*.result, 'failure') && (github.event_name == 'push' && github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch') }}
+  #   # uses: akoova/internal-github-actions/.github/workflows/chef-cookbook-upload.yml@main
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - run: echo "Upload cookbook workflow disabled"
