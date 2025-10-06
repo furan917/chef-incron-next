@@ -13,15 +13,18 @@ env:
 jobs:
   cookstyle:
     uses: ./.github/workflows/cookstyle.yml
+    secrets: inherit
 
   rspec:
     uses: ./.github/workflows/rspec.yml
+    secrets: inherit
 
   kitchen:
     uses: ./.github/workflows/kitchen.yml
     with:
       os-targets: 'ubuntu-2204, ubuntu-2404, almalinux-9'
       suites: 'default, local-source'
+    secrets: inherit
 
   # upload-cookbook:
   #   needs: [cookstyle, rspec, kitchen]

@@ -2,6 +2,7 @@ name: Cookbook Kitchen
 
 env:
   CHEF_LICENSE: accept-no-persist
+  KITCHEN_LOCAL_YAML: .kitchen.dokken.yml
 
 on:
   workflow_call:
