@@ -2,6 +2,10 @@
 driver:
   name: vagrant
 
+verifier:
+  name: inspec
+  backend_cache: false
+
 provisioner:
   name: chef_zero
 
