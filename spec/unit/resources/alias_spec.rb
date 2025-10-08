@@ -3,7 +3,6 @@ require 'spec_helper'
 describe 'resource aliases for backward compatibility' do
   before do
     stub_command(/rpm -qa | grep -q '^rpmforge-release-[0-9\.-]'/).and_return(true)
-    stub_command('systemctl list-unit-files | grep -q "incron.*masked"').and_return(false)
   end
 
   context 'using incron_user alias' do

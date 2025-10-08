@@ -5,6 +5,16 @@
 
 include_recipe 'incron-next::install'
 
+# Defensive Unmask of old service if it exists (may have been masked from old incron package)
+bash 'unmask_incron_service' do
+  code "systemctl unmask #{node['incron']['service_name']}"
+  only_if do
+    service_file = "/etc/systemd/system/#{node['incron']['service_name']}"
+    ::File.symlink?(service_file) && File.readlink(service_file) == '/dev/null'
+  end
+  ignore_failure true
+end
+
 # Create systemd service file
 template "/etc/systemd/system/#{node['incron']['service_name']}.service" do
   source 'incron.service.erb'

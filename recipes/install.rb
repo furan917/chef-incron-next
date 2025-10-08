@@ -53,10 +53,3 @@ bash 'build_incron_next' do
   creates "#{node['incron']['install_prefix']}/sbin/incrond"
   not_if { ::File.exist?("#{node['incron']['install_prefix']}/sbin/incrond") }
 end
-
-# Defensive Unmask of old service if it exists (may have been masked from old incron package)
-bash 'unmask_incron_service' do
-  code 'systemctl unmask incron'
-  only_if 'systemctl list-unit-files | grep -q "incron.*masked"'
-  ignore_failure true
-end

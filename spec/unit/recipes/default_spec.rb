@@ -5,7 +5,6 @@ describe 'incron-next::default' do
 
   before do
     stub_command(/rpm -qa | grep -q '^rpmforge-release-[0-9\.-]'/).and_return(true)
-    stub_command('systemctl list-unit-files | grep -q "incron.*masked"').and_return(false)
   end
 
   it 'builds incron-next from source' do
