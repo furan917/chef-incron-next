@@ -3,10 +3,6 @@ require 'spec_helper'
 describe 'incron-next::install' do
   let(:chef_run) { ChefSpec::SoloRunner.new(platform: 'ubuntu', version: '24.04').converge(described_recipe) }
 
-  before do
-    stub_command('systemctl list-unit-files | grep -q "incron.*masked"').and_return(false)
-  end
-
   context 'when using remote source (default)' do
     it 'installs build dependencies' do
       expect(chef_run).to install_package('build-essential')
