@@ -15,21 +15,39 @@ provisioner:
   name: dokken
 
 platforms:
-  - name: ubuntu-22.04
-    driver:
-      image: dokken/ubuntu-22.04
-      pid_one_command: /bin/systemd
-      pull_platform: linux/amd64
-
   - name: ubuntu-24.04
     driver:
       image: dokken/ubuntu-24.04
       pid_one_command: /bin/systemd
       pull_platform: linux/amd64
 
+  - name: ubuntu-22.04
+    driver:
+      image: dokken/ubuntu-22.04
+      pid_one_command: /bin/systemd
+      pull_platform: linux/amd64
+
+  - name: debian-12
+    driver:
+      image: dokken/debian-12
+      pid_one_command: /bin/systemd
+      pull_platform: linux/amd64
+
   - name: almalinux-9
     driver:
       image: dokken/almalinux-9
+      pid_one_command: /usr/lib/systemd/systemd
+      pull_platform: linux/amd64
+
+  - name: rockylinux-9
+    driver:
+      image: dokken/rockylinux-9
+      pid_one_command: /usr/lib/systemd/systemd
+      pull_platform: linux/amd64
+
+  - name: centos-stream-9
+    driver:
+      image: dokken/centos-stream-9
       pid_one_command: /usr/lib/systemd/systemd
       pull_platform: linux/amd64
 

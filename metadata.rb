@@ -10,5 +10,6 @@ depends 'yum-repoforge'
 
 supports 'centos'
 supports 'debian'
-supports 'scientific'
 supports 'ubuntu'
+supports 'almalinux'
+supports 'rockylinux'
