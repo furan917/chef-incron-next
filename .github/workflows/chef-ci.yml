@@ -22,7 +22,7 @@ jobs:
   kitchen:
     uses: ./.github/workflows/kitchen.yml
     with:
-      os-targets: 'ubuntu-2204, ubuntu-2404, almalinux-9'
+      os-targets: 'ubuntu-2204, ubuntu-2404, almalinux-9, rockylinux-9, debian-12, centos-stream-9'
       suites: 'default, local-source'
     secrets: inherit
 

@@ -10,12 +10,11 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: ubuntu-14.04
   - name: ubuntu-22.04
   - name: ubuntu-24.04
-  - name: centos-7.0
-  - name: almalinux-8
+  - name: centos-stream-9
   - name: almalinux-9
+  - name: rockylinux-9
 
 suites:
   - name: default
