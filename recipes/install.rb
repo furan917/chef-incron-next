@@ -7,6 +7,7 @@
 
 node['incron']['build_dependencies'].each do |pkg|
   package pkg do
+    retries 5
     action :install
   end
 end
