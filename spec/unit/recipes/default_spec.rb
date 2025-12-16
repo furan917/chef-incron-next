@@ -25,7 +25,7 @@ describe 'incron-next::default' do
   end
 
   it 'starts the service' do
-    expect(chef_run).to start_service('incrond')
+    expect(chef_run.service('incrond')).to notify('service[incrond]').to(:start).delayed
   end
 
 end
