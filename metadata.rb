@@ -3,7 +3,7 @@ maintainer       'Francis Gallagher'
 maintainer_email 'francis@akoova.com'
 license          'MIT'
 description      'Installs and configures incron-next, fork of incron'
-version          '0.3.8'
+version          '0.3.9'
 
 depends 'yum'
 depends 'yum-repoforge'
