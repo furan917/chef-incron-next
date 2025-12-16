@@ -24,7 +24,7 @@ template "/etc/systemd/system/#{node['incron']['service_name']}.service" do
   )
   action :create
   notifies :run, 'execute[systemd-daemon-reload]', :immediately
-  notifies node['incron']['reload_method'], 'service[incrond]'
+  notifies node['incron']['reload_method'], 'service[incrond]', :delayed
 end
 
 execute 'systemd-daemon-reload' do
@@ -35,12 +35,13 @@ end
 service 'incrond' do
   service_name node['incron']['service_name']
   supports :status => true, :restart => true, :reload => node['incron']['reload_method'] == :reload
-  action [:enable, :start]
+  action :enable
+  notifies :start, 'service[incrond]', :delayed
 end
 
 template '/etc/incron.conf' do
   source 'incron.conf.erb'
   mode '0644'
   action :create
-  notifies node['incron']['reload_method'], 'service[incrond]'
+  notifies node['incron']['reload_method'], 'service[incrond]', :delayed
 end
